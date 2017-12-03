@@ -6,7 +6,8 @@ the works, so that any entity that uses the works is notified of this instrument
 
 DISCLAIMER: THE WORKS ARE WITHOUT WARRANTY.
 }
-unit ExtraMath; {$MODE DELPHI} //////////////////////////////////////////////////////
+{$IFDEF FPC} {$MODE DELPHI} {$ENDIF}
+unit ExtraMath; /////////////////////////////////////////////////////////////////////
 {
 >> Version: 1.13
 
