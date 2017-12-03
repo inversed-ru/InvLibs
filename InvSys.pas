@@ -6,7 +6,8 @@ the works, so that any entity that uses the works is notified of this instrument
 
 DISCLAIMER: THE WORKS ARE WITHOUT WARRANTY.
 }
-unit InvSys; {$MODE DELPHI} /////////////////////////////////////////////////////////
+{$IFDEF FPC} {$MODE DELPHI} {$ENDIF}
+unit InvSys; ////////////////////////////////////////////////////////////////////////
 {
 >> Version: 1.0
    
@@ -65,6 +66,7 @@ type
 function Sign(
       b  :  Boolean
       )  :  Integer;
+      overload;
 
 // Swap a and b
 procedure Swap(
@@ -147,6 +149,7 @@ implementation /////////////////////////////////////////////////////////////////
 function Sign(
       b  :  Boolean
       )  :  Integer;
+      overload;
    begin
    Result := 2 * Ord(b) - 1;
    end;
