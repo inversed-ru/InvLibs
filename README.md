@@ -1,5 +1,5 @@
 # InvLibs
-Personal collection of assorted Pascal units. 
+Collection of assorted Delphi / FreePascal units. 
 
 Unit | Description
 -----|------------
