@@ -156,7 +156,7 @@ function StandDev(
 
 // Return the mean, standard deviation and skewness of Data. StandDev and   
 // Skew are set to 0 if there are less than 2 and 3 values respectively.
-procedure GedMeanStandDevSkew(
+procedure GetMeanStandDevSkew(
    var   Mean,
          StandDev,
          Skew     :  Real;
@@ -501,7 +501,7 @@ function StandDev(
 
 // Return the mean, standard deviation and skewness of Data. StandDev and   
 // Skew are set to 0 if there are less than 2 and 3 values respectively.
-procedure GedMeanStandDevSkew(
+procedure GetMeanStandDevSkew(
    var   Mean,
          StandDev,
          Skew     :  Real;
