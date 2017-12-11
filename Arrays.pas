@@ -9,7 +9,7 @@ DISCLAIMER: THE WORKS ARE WITHOUT WARRANTY.
 {$IFDEF FPC} {$MODE DELPHI} {$ENDIF}
 unit Arrays; ////////////////////////////////////////////////////////////////////////
 {
->> Version: 1.0
+>> Version: 1.1
 
 >> Description
    Basic array routines. Part of InvLibs unit collection.
@@ -29,6 +29,7 @@ unit Arrays; ///////////////////////////////////////////////////////////////////
    - See if any operations are bottlenecks in any programs and optimize them
 
 >> Changelog
+   1.1   : 2017.12.08   + RandMinIndex and RandMaxIndex functions
    1.0   : 2017.12.02   ~ Renamed the unit to Arrays
                         ~ Renamed AddToArray to Append and AddUnique to AppendUnique
                           to avoid confusion
@@ -384,6 +385,16 @@ procedure MarkValue(
 function ValueCount(
    const A        :  TIntArray;
          Value    :  Integer
+         )        :  Integer;
+         
+// Return the index of minimal element of A, break ties randomly
+function RandMinIndex(
+   const A        :  array of Real
+         )        :  Integer;
+         
+// Return the index of maximal element of A, break ties randomly
+function RandMaxIndex(
+   const A        :  array of Real
          )        :  Integer;
 
 {-----------------------<< 2D arrays >>---------------------------------------------}
@@ -1098,6 +1109,57 @@ function ValueCount(
    for i := 0 to Length(A) - 1 do
       if A[i] = Value then
          Inc(Result);
+   end;
+   
+   
+// Return the index of minimal (K = -1) or maximal (K = +1) element of A, 
+// break ties randomly
+function RandMinMaxIndex(
+   const A           :  array of Real;
+         K           :  Integer
+         )           :  Integer;
+   var
+         Indices     :  TIntArrayN;
+         i           :  Integer;
+         MaxValue, x :  Real;
+   const
+         Len0        =  4;
+   begin
+   MaxValue := K * A[0];
+   SetLength(Indices._, Len0);
+   Indices.N := 0;
+   for i := 0 to Length(A) - 1 do
+      begin
+      x := K * A[i];
+      if x >= MaxValue then
+         begin
+         if x > MaxValue then
+            begin
+            MaxValue := x;
+            InitArrayN(Indices);
+            end;
+         Append(Indices, i);
+         end;
+      end;
+   Result := Indices._[ Random(Indices.N) ];
+   end;
+
+
+// Return the index of minimal element of A, break ties randomly
+function RandMinIndex(
+   const A        :  array of Real
+         )        :  Integer;
+   begin
+   Result := RandMinMaxIndex(A, -1);
+   end;
+
+
+// Return the index of maximal element of A, break ties randomly
+function RandMaxIndex(
+   const A        :  array of Real
+         )        :  Integer;
+   begin
+   Result := RandMinMaxIndex(A, +1);
    end;
 
 {-----------------------<< 2D arrays >>---------------------------------------------}
