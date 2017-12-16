@@ -9,7 +9,7 @@ DISCLAIMER: THE WORKS ARE WITHOUT WARRANTY.
 {$IFDEF FPC} {$MODE DELPHI} {$ENDIF}
 unit Arrays; ////////////////////////////////////////////////////////////////////////
 {
->> Version: 1.1
+>> Version: 1.2
 
 >> Description
    Basic array routines. Part of InvLibs unit collection.
@@ -29,6 +29,7 @@ unit Arrays; ///////////////////////////////////////////////////////////////////
    - See if any operations are bottlenecks in any programs and optimize them
 
 >> Changelog
+   1.2   : 2017.12.15   + DistanceL2 function
    1.1   : 2017.12.08   + RandMinIndex and RandMaxIndex functions
    1.0   : 2017.12.02   ~ Renamed the unit to Arrays
                         ~ Renamed AddToArray to Append and AddUnique to AppendUnique
@@ -242,10 +243,15 @@ procedure ArrayMulAdd(
    const B     :  TRealArray;
          C     :  Real);
 
-// Return the dot product between A and B
+// The dot product between A and B
 function DotProduct(
    var   A, B  :  TRealArray
-         )     :  Real;         
+         )     :  Real; 
+
+// The Euclidean distance between A and B
+function DistanceL2(
+   const A, B  :  TRealArray
+   )           :  Real;         
 
 {-----------------------<< Element addition and removal >>---------------------------}
 
@@ -757,7 +763,7 @@ procedure ArrayMulAdd(
    end;
 
 
-// Return the dot product between A and B
+// The dot product between A and B
 function DotProduct(
    var   A, B  :  TRealArray
          )     :  Real;
@@ -768,6 +774,22 @@ function DotProduct(
    Result := 0;
    for i := 0 to Length(A) - 1 do
       Result := Result + A[i] * B[i];
+   end;
+   
+   
+// The Euclidean distance between A and B
+function DistanceL2(
+   const A, B  :  TRealArray
+   )           :  Real;
+   var
+         i     :  Integer;
+         Sum   :  Real;
+   begin
+   Assert(Length(A) = Length(B));
+   Sum := 0;
+   for i := 0 to Length(A) - 1 do
+      Sum := Sum + Sqr(A[i] - B[i]);
+   Result := Sqrt(Sum);
    end;
 
 {-----------------------<< Element addition and removal >>---------------------------}
