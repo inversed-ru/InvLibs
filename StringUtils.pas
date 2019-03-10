@@ -1,5 +1,5 @@
 { 
-Copyright (c) Peter Karpov 2010 - 2017.
+Copyright (c) Peter Karpov 2010 - 2019.
 
 Usage of the works is permitted provided that this instrument is retained with 
 the works, so that any entity that uses the works is notified of this instrument.
@@ -9,7 +9,7 @@ DISCLAIMER: THE WORKS ARE WITHOUT WARRANTY.
 {$IFDEF FPC} {$MODE DELPHI} {$ENDIF}
 unit StringUtils; ///////////////////////////////////////////////////////////////////
 {
->> Version: 1.13
+>> Version: 1.14
 
 >> Description
    Various string routines. Works with Win1251 Russian encoding. Part of InvLibs unit
@@ -37,6 +37,7 @@ unit StringUtils; //////////////////////////////////////////////////////////////
    ? Incorporate direction into GetPos (extra overloaded version)
 
 >> Changelog
+   1.14  : 2019.03.10 * SeekChars and TrimWhitespace not working with empty strings
    1.13  : 2017.12.05 ~ Changed SubstrCount and GetPos argument order for consistency
                         with other search and replace routines
                       ~ SubstringAtPosition renamed to SubstrAtPos
@@ -471,7 +472,7 @@ function IsSuffix(
 {-----------------------<< Search and replace >>------------------------------------}
 
 // Return the index of the first character from Chars found in S starting from Start
-// and going in the direction Dir, or a the first out of bounds index if nothing was
+// and going in the direction Dir, or the first out of bounds index if nothing was
 // found
 function SeekChars(
    const S           :  AnsiString;
@@ -481,7 +482,6 @@ function SeekChars(
    var
          i, Len      :  Integer;
    begin
-   Assert(Start <> 0);
    i := Start;
    Len := Length(S);
    while (i > 0) and (i <= Len) and not (S[i] in Chars) do
