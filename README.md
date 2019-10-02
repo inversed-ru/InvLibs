@@ -9,6 +9,7 @@ Sorting | General-purpose and predefined sorting procedures
 ExtraMath | Various mathematical routines 
 SpecFuncs | Special mathematical functions
 StringUtils | String manipulation
+StringLists | Lists of strings
 Statistics | Various statistical quantities
 RandVars | Random variable generation
 BitMath | Bit-level arithmetic functions
